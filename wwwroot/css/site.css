@@ -163,9 +163,10 @@ a{
     font-weight: bold;
 }
 
-.price-pizza{
+.price-pizza {
     transform: rotate(45deg);
     padding-top: 1.25rem;
+    padding-right: 1rem;
 }
 
 .price-wrap {
