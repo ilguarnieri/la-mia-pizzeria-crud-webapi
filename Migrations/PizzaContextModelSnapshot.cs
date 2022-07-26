@@ -37,7 +37,7 @@ namespace la_mia_pizzeria_static.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categories");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("la_mia_pizzeria_static.Models.Pizza", b =>
@@ -74,7 +74,7 @@ namespace la_mia_pizzeria_static.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("pizzas");
+                    b.ToTable("pizzas", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
