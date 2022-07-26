@@ -1,0 +1,275 @@
+1html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+/* SCROLL-BAR STYLE */
+::-webkit-scrollbar {
+    width: 9px;
+}
+/* MANIGLIA DI SCORRIMENTO */
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: #909090;
+}
+
+
+body{
+    height:100vh;
+}
+
+.pizza-background {
+    background-image: url(/img/background.jpg);
+    background-size: cover;
+}
+
+.patter-background {
+    background-image: url(/img/background_black.jpg);
+    background-size: auto;
+}
+
+footer {
+    border-top: 1px solid lightgray;
+    background-color: white;
+}
+
+img{
+    max-width: 100%;
+    display: block;
+}
+
+ul{
+    display: contents;
+}
+
+ul li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: currentColor;
+}
+
+    a:hover {
+        color: red !important;
+    }
+
+.active-item {
+    font-weight: bold;
+    color: red !important;
+}
+
+.pizz_button {
+    border-radius: 999px;
+    font-weight: bold;
+    border: 0;
+    padding: 4px 15px;
+    min-width: 100px;
+    transition: all 200ms linear;
+}
+
+.button_save{
+    color: white;
+    background-color: red;
+    transition: all 200ms linear;
+}
+
+.button_save:hover{
+    background-color: forestgreen;
+}
+
+
+.pizza-img{
+    object-fit: contain;
+}
+
+
+/*------------------------------- I N D E X ------------------------------*/
+.welcome-wrapper {
+    color: white;
+}
+
+.welcome-wrapper .title {
+    font-size: min(15vw, 150px);
+}
+
+.welcome-wrapper .menu-title{
+    opacity: 0.7;
+    transition: all 200ms linear;
+}
+
+    .welcome-wrapper .menu-title:hover {
+        opacity: 1;
+    }
+
+    .welcome-wrapper .title::after {
+        height: 7px;
+        width: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        position: relative;
+        display: block;
+        content: "";
+        animation: welcome 1800ms linear;
+        border-radius: 50px;
+    }
+
+    @media (max-width:650px){
+        .welcome-wrapper .title::after {
+            height: 4px;
+        }
+    }
+
+@keyframes welcome{
+    0%{
+        width: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    100% {
+        width: 110%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/*------------------------------- M E N U ------------------------------*/
+.pizza-wrapper {
+    width: 350px;
+    box-shadow: 6px 9px 11px 0px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+    user-select: none;
+    transition: all 200ms linear;
+    background-color: white;
+    border-radius: 20px 0 20px 20px;
+}
+
+.pizza-wrapper:hover{
+    transform: scale(1.05);
+}
+
+.img-wrapper {
+    width: 90%
+}
+
+.text-name{
+    color: red;
+    font-weight: bold;
+}
+
+.price-pizza{
+    transform: rotate(45deg);
+    padding-top: 1.25rem;
+}
+
+.price-wrap {
+    background-color: red;
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    height: 80px;
+    width: 80px;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+
+.btn_category{
+    color: red;
+}
+
+.btn_category.active{
+    background-color: red;
+    color: white;
+}
+
+.btn_category:hover{
+    color: white;
+    background-color: red;
+}
+
+
+
+
+/*------------------------------- D E T A I L ------------------------------*/
+.pizza-detail {
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+.pizza-detail li {
+    list-style-type: square;
+}
+
+.price-details{
+    min-width: 70px;
+    min-height: 70px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    left: 0;
+    top:  0;
+}
+
+
+
+/*------------------------------- C R E A T E ------------------------------*/
+.pizza-create {
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+}
+
+    .pizza-create .form-control:focus, .form-select:focus {
+        border-color: rgb(255 0 0 / 15%);
+        box-shadow: 0 0 0 0.25rem rgb(255 0 0 / 25%);
+    }
+
+
+.required-wrapper{
+    bottom: 20px;
+    right:  20px;
+}
+
+
+
+/*------------------------------- D E L E T E ------------------------------*/
+
+.confirm-delete {
+    max-width: 400px;
+    color: black;
+    border-radius: 20px;
+    background-color: #F5DD74;
+    opacity: 0.95;
+    box-shadow: 0px 0px 1px 9999px rgb(0 0 0 / 75%);
+}
+
+.delete_button {
+    background-color: #CF464D;
+    color: white;
+    transition: all 200ms linear;
+}
+
+.delete_button:hover {
+    background-color: red;
+}
+
+.change_button {
+    background-color: darkgreen;
+    color: white;
+    transition: all 200ms linear;
+}
+
+.change_button:hover {
+    background-color: green;
+}
+

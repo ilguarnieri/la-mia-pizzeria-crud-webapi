@@ -1,0 +1,63 @@
+﻿
+@model CategoryPizza
+
+<main class="patter-background p-3 pt-5 pb-5 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
+
+    <section class="pizza-create container col-lg-7 col-xl-6 p-4 pb-5 p-md-5 pt-md-4 position-relative">
+
+        <h2 class="text-center text-name">Crea una nuova Pizza</h2>
+
+        <form asp-controller="Pizza" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3 pt-3">
+                <label for="nomePizza" class="form-label">Nome della pizza*</label>
+                <input asp-for="Pizza.Name" type="text" class="form-control" id="nomePizza" aria-describedby="nomePizza" required>
+                <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+            </div>
+
+
+            <select asp-for="Pizza.CategoryId" class="form-select mb-3" aria-label="Default select example">
+                <option>- - Seleziona una categoria - -</option>
+                @foreach(Category category in Model.Categories)
+                {
+                    if(Model.Pizza.CategoryId == category.Id)
+                    {
+                        <option value="@category.Id" selected>@category.Name</option>
+                    }else
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                }  
+            </select>
+
+            <p class="mb-2">Ingredienti*</p>
+            <div class="form-floating mb-3">                   
+                <textarea class="form-control p-2" id="ingredientiPizza" style="height: 80px"
+                asp-for="Pizza.Ingredients"  type="text" class="form-control" id="ingredientiPizza" aria-describedby="ingredientiPizza" required></textarea>
+                <span asp-validation-for="Pizza.Ingredients" class="text-danger"></span>
+                <div class="m-0 form-text">Inserisci gli ingredienti separandoli con una virgola</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="prezzoPizza" class="form-label">Prezzo*</label>
+                <input asp-for="Pizza.Price" type="text" pattern="^\d,[0-9]{2}$" value="" placeholder="Inserisci un prezzo nel formato x,xx" class="form-control" id="prezzoPizza" required>
+                <span asp-validation-for="Pizza.Price"  class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="urlPizza" class="form-label">Inserisci URL di una foto</label>
+                <input asp-for="Pizza.Photo" type="url" pattern="https://.*" class="form-control" id="urlPizza" aria-describedby="urlPizza" placeholder="https://example.com">
+                <span asp-validation-for="Pizza.Photo"  class="text-danger"></span>
+            </div>
+
+            <div class="mb-2 pt-3">
+                <button type="submit" class="pizz_button button_save w-100">Salva</button>
+            </div>
+
+        </form>
+
+        <div class="required-wrapper m-0 form-text position-absolute">* Campi obbligatori</div>
+    </section>
+
+</main>
