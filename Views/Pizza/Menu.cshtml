@@ -1,44 +1,38 @@
 ﻿
-@model List<Pizza>
-
 @{
     IEnumerable<Category> categories = ViewData["Categories"] as IEnumerable<Category>;
 }
 
 <main class="patter-background p-3 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
 
-    @if(Model.Count() == 0)
-    {
-        <div class="p-3 text-center">
-            <h1>Attualmente non è presente nessuna pizza nella nostra applicazione!</h1>
-        </div>
-    }
+ 
+    <div class="p-3 text-center d-none">
+        <h1>Attualmente non è presente nessuna pizza nella nostra applicazione!</h1>
+    </div>
+    
 
-    else
-    {
-        <div class="container-fluid container-lg d-flex justify-content-center gap-4 mb-4 mt-4 flex-wrap">
+    <div class="container-fluid container-lg d-flex justify-content-center gap-4 mb-4 mt-4 flex-wrap">
 
-             <button id="all" class="pizz_button active btn_category col-12 col-sm-5 col-md-3">
-                   Tutte
-               </button>
+         <button id="all" class="pizz_button active btn_category col-12 col-sm-5 col-md-3">
+               Tutte
+           </button>
 
-            @foreach(Category category in categories)
-            {
-               <button id="@category.Id" class="pizz_button btn_category col-12 col-sm-5 col-md-3">
-                   @category.Name
-               </button>
-            }
-        </div>
+        @foreach(Category category in categories)
+        {
+           <button id="@category.Id" class="pizz_button btn_category col-12 col-sm-5 col-md-3">
+               @category.Name
+           </button>
+        }
+    </div>
 
 
-        <div class="container-fluid container-lg d-flex justify-content-center flex-wrap gap-4 p-3 flex-grow-1">
+    <div class="container-fluid container-lg d-flex justify-content-center flex-wrap gap-4 p-3 flex-grow-1">
 
-            <ul class="pizzas_ul">
-                
-            </ul>              
+        <ul class="pizzas_ul">
+            
+        </ul>              
 
-        </div>
-    }
+    </div>
     
 </main>
 
@@ -110,7 +104,7 @@ function addPizza(el) {
     anchorItem.append(name);
 }
 
-//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - B T N - C A T E G O R Yt
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - B T N - C A T E G O R Y
 
 function searchCategory() {
     const btn_categories = document.querySelectorAll('.pizz_button');

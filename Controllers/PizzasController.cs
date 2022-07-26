@@ -15,7 +15,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             using (PizzaContext db = new PizzaContext())
             {
-                IEnumerable<Pizza> pizzas = db.Pizzas.ToList();
+                IEnumerable<Pizza> pizzas = db.Pizzas.OrderBy(p => p.Name).ToList();
 
                 return Ok(pizzas);
             }

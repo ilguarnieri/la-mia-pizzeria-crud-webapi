@@ -11,19 +11,17 @@ namespace la_mia_pizzeria_static.Controllers
         // GET: HomeController1
         public ActionResult Menu()
         {
-            List<Pizza> pizze;
             List<Category> categories;
 
             using (PizzaContext db = new PizzaContext())
             {
-                pizze = db.Pizzas.ToList();
                 categories = db.Categories.ToList();
             }
 
             ViewData["Title"] = "Menu";
             ViewData["Categories"] = categories;
 
-            return View(pizze);
+            return View();
         }
 
         // GET: HomeController1/Details/5
