@@ -230,7 +230,7 @@ a{
     border-radius: 20px;
 }
 
-    .pizza-create .form-control:focus, .form-select:focus {
+    .pizza-create .form-control:focus, .form-select:focus, .form-check-input:focus {
         border-color: rgb(255 0 0 / 15%);
         box-shadow: 0 0 0 0.25rem rgb(255 0 0 / 25%);
     }
@@ -274,3 +274,14 @@ a{
     background-color: green;
 }
 
+
+
+/*------------------------------- L O G I N ------------------------------*/
+.form-check-input[type=checkbox] {
+    border-radius: 45.25em;
+}
+
+.form-check-input:checked {
+    background-color: #CF464D;
+    border-color: #CF464D;
+}

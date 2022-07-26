@@ -57,17 +57,21 @@
                 </ul>
             </div>
 
-            <div class="mb-2 pt-3 d-flex justify-content-evenly">
-                <a asp-controller="Pizza" asp-action="Edit" asp-route-id="@Model.Id">
-                    <button type="submit" class="pizz_button change_button">
-                        Modifica
-                    </button>
-                </a>
+            @if (User.Identity.IsAuthenticated)
+            {                
+                <div class="mb-2 pt-3 d-flex justify-content-evenly">
+                    <a asp-controller="Pizza" asp-action="Edit" asp-route-id="@Model.Id">
+                        <button type="submit" class="pizz_button change_button">
+                            Modifica
+                        </button>
+                    </a>
                     
-                <button type="submit" class="pizz_button delete_button">
-                    Elimina
-                </button>
-            </div>
+                    <button type="submit" class="pizz_button delete_button">
+                        Elimina
+                    </button>
+                </div>
+            }
+
         </div>
 
     </section>

@@ -1,5 +1,6 @@
 ﻿using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -62,6 +63,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         // GET: HomeController1/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewData["Title"] = "Crea pizza";
@@ -79,6 +81,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         // POST: HomeController1/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CategoryPizza pizzaModel)
@@ -105,6 +108,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         // GET: HomeController1/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             using(PizzaContext db = new PizzaContext())
@@ -128,6 +132,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         // POST: HomeController1/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Pizza pizza)
@@ -163,6 +168,7 @@ namespace la_mia_pizzeria_static.Controllers
         }
 
         // POST: HomeController1/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
