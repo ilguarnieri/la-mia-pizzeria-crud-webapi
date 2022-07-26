@@ -1,5 +1,15 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<IdentityUser> UserManager
+
 <main class="pizza-background welcome-wrapper pizza-background d-flex flex-column align-items-center h-100 w-100 justify-content-center">
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h3 class="text-white  m-0">
+            Welcome @UserManager.GetUserName(User)
+        </h3>
+    }
 
     <h1 class="title">PIZZABOOL</h1>
     <h3 class="menu-title pt-3"><a asp-controller="Pizza" asp-action="Menu">Menù</a></h3>

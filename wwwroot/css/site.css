@@ -25,16 +25,27 @@ body{
 .pizza-background {
     background-image: url(/img/background.jpg);
     background-size: cover;
+    min-height: 90vh;
+}
+
+@media screen and (max-width: 800px){
+    .pizza-background {
+        background-image: url(/img/background_vertical.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position-x:center;
+        background-position-y: center;
+    }
 }
 
 .patter-background {
     background-image: url(/img/background_black.jpg);
     background-size: auto;
+    min-height: 90vh;
 }
 
 footer {
-    border-top: 1px solid lightgray;
-    background-color: white;
+    background-color: #2e3333;
 }
 
 img{
@@ -273,3 +284,99 @@ a{
 .change_button:hover {
     background-color: green;
 }
+
+
+
+
+/*------------------------------- F O O T E R ------------------------------*/
+
+.Bcolor, .name-sviluppatori {
+    background-color: #2e3333;
+}
+
+.footer-container {
+    min-height: 350px;
+    color: white;
+}
+
+@media screen and (max-width:576px) {
+
+
+    .footer-container {
+        padding: 16px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+    .footer-container > div:not(:last-child) {
+        width: 100% !important;
+    }
+
+    .footer-container > div:nth-child(1) {
+        height: 250px;
+    }
+}
+
+@media screen and (min-width:576px) {
+    .footer-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+
+        .footer-container > div:not(:last-child) {
+            width: 45% !important;
+        }
+
+        .footer-container > div:not(:last-child) {
+            min-height: 250px;
+        }
+}
+
+@media screen and (min-width:992px) {
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+        .footer-container > div:not(:last-child) {
+            width: 24% !important;
+            height: 300px;
+        }
+
+        .footer-container > div:last-child {
+            width: 100% !important;
+        }
+}
+
+.footer-container > div {
+    margin: 7px 0;
+    padding: 10px 20px;
+    line-height: 2;
+}
+
+
+.footer-container ul span {
+    font-size: 18px;
+}
+
+
+.footer-container span {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.discover-pizz, .legal-notices, .help, .take-pizz {
+    background-color: #434848;
+}
+
+
+.take-pizz li {
+    margin: 8px 0;
+}
+
+.take-pizz img {
+    width: 130px;
+}
+
