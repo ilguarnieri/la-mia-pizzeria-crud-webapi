@@ -9,12 +9,7 @@
         </a>
 
         @*- - - NAME SITE - - -*@
-        @if (User.Identity.IsAuthenticated)
-        {
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DashBoard</a>
-        }else{
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PizzaBool</a>
-        }
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PizzaBool</a>
 
         @*- - - NAV BURGER - - -*@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
