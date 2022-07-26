@@ -9,20 +9,37 @@
     }
 }
 
-<h1>Manage your account</h1>
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
+<main class="dashboard-background welcome-wrapper d-flex align-items-center h-100 w-100 justify-content-center text-black">
+
+    <section class="dashboard-wrapper container h-100">
+        
+        <div class="pt-3">
+            <h2>Dashboard</h2>
+            <hr />
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <partial name="_ManageNav" />
+                </div>
+
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+
+            </div>
         </div>
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-    </div>
-</div>
+       
+    </section>
+
+
+</main>
+
+
+
+
+
 
 @section Scripts {
     @RenderSection("Scripts", required: false)

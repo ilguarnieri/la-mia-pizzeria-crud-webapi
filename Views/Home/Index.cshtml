@@ -16,6 +16,7 @@
 
     @if (User.Identity.IsAuthenticated)
     {        
+        <h3 class="menu-title"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Dashboard</a></h3>
         <h3 class="menu-title"><a asp-controller="Pizza" asp-action="Create">Crea una nuova pizza</a></h3>
     }
 

@@ -368,7 +368,8 @@ a{
 }
 
 .discover-pizz, .legal-notices, .help, .take-pizz {
-    background-color: #434848;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    border-left: 1px solid rgba(255,255,255,0.3);
 }
 
 
@@ -402,4 +403,15 @@ a{
     100% {
         transform: scale(1);
     }
+}
+
+
+
+
+/*------------------------------- D A S H B O A R D ------------------------------*/
+
+.dashboard-background {
+    background-image: url(/img/bg_users.png);
+    background-size: cover;
+    min-height: 90vh;
 }
