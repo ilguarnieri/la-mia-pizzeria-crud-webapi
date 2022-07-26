@@ -8,9 +8,9 @@
 
 <main class="patter-background p-3 pt-5 pb-5 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
 
-    <section class="pizza-create container col-lg-7 col-xl-6 p-4 pb-5 p-md-5 pt-md-4 position-relative">
+    <section class="pizza-create container col-md-8 col-lg-6 col-xl-5 p-4 pb-5 p-md-5 pt-md-4 position-relative">
 
-        <h2 class="text-center text-name">@ViewData["Title"]</h2>
+        <h2 class="text-center text-name">Accedi</h2>
 
         <section>
             <form id="account" method="post">
@@ -19,39 +19,24 @@
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input asp-for="Input.Email" type="email" placeholder="Inserisci email" class="form-control" id="email" required>
+                    <input asp-for="Input.Email" type="email" placeholder="marco@rossi.it" class="form-control" id="email" required>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
 
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input asp-for="Input.Password" type="text" placeholder="Inserisci email" class="form-control" id="password" required>
+                    <input asp-for="Input.Password" type="text" placeholder="*****" class="form-control" id="password" required>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
 
 
                 <div>
-                    <div class="checkbox">
-                        <label asp-for="Input.RememberMe" class="form-label">
-                            <input class="form-check-input" asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
-                        </label>
-                    </div>
-                </div>
-
-                <div>
                     <button id="login-submit" type="submit" class="mb-2 w-100 btn btn-lg pizz_button button_save text-white">Log in</button>
                 </div>
                 <div>
-                    <p class="m-0  opacity-75">
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
                     <p class="m-0 opacity-75">
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p class="m-0 opacity-75">
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Crea un nuovo account</a>
                     </p>
                 </div>
             </form>
