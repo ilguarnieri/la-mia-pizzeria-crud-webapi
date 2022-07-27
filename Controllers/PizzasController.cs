@@ -11,11 +11,16 @@ namespace la_mia_pizzeria_static.Controllers
     {
 
         [HttpGet]
-        public IActionResult GetPizzas()
+        public IActionResult GetPizzas(int? categoryId)
         {
             using (PizzaContext db = new PizzaContext())
             {
                 IEnumerable<Pizza> pizzas = db.Pizzas.OrderBy(p => p.Name).ToList();
+
+                if(categoryId != null)
+                {
+                    pizzas = db.Pizzas.Where(p => p.CategoryId == categoryId).OrderBy(p => p.Name).ToList();
+                }
 
                 return Ok(pizzas);
             }

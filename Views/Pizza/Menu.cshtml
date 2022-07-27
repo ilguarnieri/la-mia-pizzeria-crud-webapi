@@ -3,17 +3,12 @@
     IEnumerable<Category> categories = ViewData["Categories"] as IEnumerable<Category>;
 }
 
-<main class="patter-background p-3 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
-
- 
-    <div class="p-3 text-center d-none">
-        <h1>Attualmente non è presente nessuna pizza nella nostra applicazione!</h1>
-    </div>
+<main class=" overflow-hidden patter-background p-3 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
     
 
     <div class="container-fluid container-lg d-flex justify-content-center gap-4 mb-4 mt-4 flex-wrap">
 
-         <button id="all" class="pizz_button active btn_category col-12 col-sm-5 col-md-3">
+         <button class="pizz_button active btn_category col-12 col-sm-5 col-md-3">
                Tutte
            </button>
 
@@ -26,11 +21,27 @@
     </div>
 
 
-    <div class="container-fluid container-lg d-flex justify-content-center flex-wrap gap-4 p-3 flex-grow-1">
+    <div class="container-fluid container-lg d-flex justify-content-center align-content-center flex-wrap gap-4 p-3 flex-grow-1">
 
-        <ul class="pizzas_ul">
+        <div class="text-load position-relative">
+            <div id="load">
+              <div>G</div>
+              <div>N</div>
+              <div>I</div>
+              <div>D</div>
+              <div>A</div>
+              <div>O</div>
+              <div>L</div>
+            </div>
+        </div>
+
+        <ul class="pizzas_ul d-none">
             
-        </ul>              
+        </ul> 
+        
+        <div class="pizza-empty p-3 text-center d-none">
+            <h1>Attualmente non è presente nessuna pizza!</h1>
+        </div>
 
     </div>
     
@@ -40,23 +51,93 @@
 @section Scripts{
 <script>
 
-//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - P I Z Z E - A X I O S
-let pizzas;
+let pizzas = [];
 const pizzas_ul = document.querySelector('.pizzas_ul');
+const btn_categories = document.querySelectorAll('.pizz_button');
+addListenerBtn();
+
+start();
+
+function start(id) {
+
+    const pizza_empty = document.querySelector('.pizza-empty');
+    const text_load = document.querySelector('.text-load');
+
+    pizza_empty.classList.add('d-none');
+    text_load.classList.remove('d-none');
+    pizzas_ul.innerHTML = '';
+    pizzas_ul.classList.add('d-none');
+    getPizze(id);
+
+    setTimeout(() => {
+
+        if (pizzas.length > 0) {
+
+            text_load.classList.add('d-none');
+            pizzas_ul.classList.remove('d-none');
+
+        } else {
+            
+            text_load.classList.add('d-none');
+            pizza_empty.classList.remove('d-none');
+        }
+    }, 2200)
+}
 
 
-axios.get('/api/pizzas')
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - A X I O S
+function getPizze(id) {
+
+    axios.get('/api/pizzas', {
+        params: {
+            categoryId: id
+        }
+    })
     .then(res => {
         pizzas = res.data;
         pizzas.forEach(addPizza);
-        searchCategory();
     })
 
     .catch(err => {
         console.log(err);
     })
+}
 
 
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - B T N - C A T E G O R Y
+function addListenerBtn() {
+
+    for (i = 0; i < btn_categories.length; i++) {
+
+        const btn = btn_categories[i];
+        const id = btn_categories[i].id;
+
+        btn.addEventListener('click', searchCategory);
+    }
+}
+
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - S E A R C H - X - C A T E G O R Y
+function searchCategory() {
+
+    for (i = 0; i < btn_categories.length; i++) {
+
+        const btn = btn_categories[i];
+
+        if (btn.classList.contains('active')) {
+
+            btn.classList.remove('active');
+            break;
+        }
+    }
+
+    this.classList.add('active');
+    start(this.id);
+}
+
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - A D D - P I Z Z A
 function addPizza(el) {
 
     //creazione item
@@ -64,18 +145,18 @@ function addPizza(el) {
     newItem.classList.add('pizza-wrapper', 'd-flex', 'flex-column', 'justify-content-center', 'align-content-center', 'text-center', 'p-4', 'position-relative', 'mb-3')
     newItem.dataset.pizza = el.categoryId;
     pizzas_ul.append(newItem);
-
+    
     //ancoraggio controller
     const anchorItem = document.createElement('a');
     var myUrl = '@Url.Action("Details","Pizza")/' + el.id;
     anchorItem.href = myUrl;
     newItem.append(anchorItem);
-
+    
     //div img e prezzo
     const img_wrapper = document.createElement('div');
     img_wrapper.classList.add('img-wrapper', 'mb-3', 'm-auto');
     anchorItem.append(img_wrapper);
-
+    
     //img
     const imgPizza = document.createElement('img');
     imgPizza.alt = 'foto-pizza';
@@ -85,61 +166,23 @@ function addPizza(el) {
         imgPizza.src = el.photo;
     }
     img_wrapper.append(imgPizza);
-
+    
     //div prezzo
     const price_wrap = document.createElement('div');
     price_wrap.classList.add('price-wrap', 'd-flex', 'justify-content-end');
     img_wrapper.append(price_wrap);
-
+    
     //prezzo
     const price = document.createElement('p');
     price.classList.add('price-pizza', 'm-0');
     price.innerHTML = `${el.price} €`;
     price_wrap.append(price);
-
+    
     //nome pizza
     const name = document.createElement('h3');
     name.classList.add('text-name');
     name.innerHTML = el.name;
-    anchorItem.append(name);
-}
-
-//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - B T N - C A T E G O R Y
-
-function searchCategory() {
-    const btn_categories = document.querySelectorAll('.pizz_button');
-    const pizza_wrapper = document.querySelectorAll('.pizza-wrapper');
-
-    for (i = 0; i < btn_categories.length; i++) {
-
-        const btn = btn_categories[i];
-        const id = btn_categories[i].id;
-
-        btn.addEventListener('click', () => {
-
-            btn_categories.forEach(myFunction);
-
-            function myFunction(value, index, array) {
-                value.classList.remove('active');            
-            }
-
-           btn.classList.add('active');
-        
-            for (j = 0; j < pizza_wrapper.length; j++) {
-
-                pizza_wrapper[j].classList.add('d-none');
-
-                if (pizza_wrapper[j].dataset.pizza == id) {
-
-                     pizza_wrapper[j].classList.remove('d-none');
-
-                }else if (id == 'all') {
-
-                    pizza_wrapper[j].classList.remove('d-none');
-                }            
-            }
-        });
-    }
+    anchorItem.append(name);  
 }
 
 </script>
