@@ -412,10 +412,8 @@ a{
 
 .dashboard-background {
     background-image: url(/img/bg_users.png);
-    background-size: cover;
     min-height: 90vh;
     background-position-x: right;
-    background-position-y: center;
 }
 
 @media screen and (max-width:1100px){
@@ -428,6 +426,22 @@ a{
     }
 }
 
+.table-img{
+    width: 150px;
+    height: 150px;
+}
+
+@media screen  and (max-width:500px){
+    .table-img {
+        height: 50px;
+    }
+}
+
+@media screen and (max-width:410px) {
+    .t-visible {
+        display: none;
+    }
+}
 
 
 /*------------------------------- L O A D I N G ------------------------------*/
