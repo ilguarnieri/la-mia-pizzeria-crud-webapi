@@ -434,11 +434,11 @@ a{
 }
 
 #dashboard .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #CF464D;
-    border-radius: 0.25rem;
+    color: red;
+    background: linear-gradient(270deg, rgba(0,204,188,1) 0%, rgba(255,255,255,0.4321078773306197) 0%, rgba(158,158,158,0.4) 100%);
     border: 0;
-    letter-spacing: 1px;
+    letter-spacing: 4px;
+    border-bottom: 1px solid #CF464D;
 }
 
 #dashboard .nav-pills .nav-link {
@@ -470,6 +470,23 @@ a{
 .table-striped > tbody > tr:nth-of-type(odd) {
     --bs-table-accent-bg: rgb(255 0 0 / 5%);
 }
+
+#input_dash_search:focus-visible {
+    outline: #CF464D auto 1px;
+}
+
+
+/*------------------------------- D A S H B O A R D * - * I N D E X ------------------------------*/
+.dash-index-wrapper{
+    min-height: 70vh;
+}
+
+@media screen and (max-width: 767px){
+    .dash-index-wrapper {
+        min-height: 50vh;
+    }
+}
+
 
 
 

@@ -10,7 +10,7 @@
 }
 
 
-<main id="dashboard" class="dashboard-background welcome-wrapper d-flex align-items-center h-100 w-100 justify-content-center text-black">
+<main id="dashboard" class="dashboard-background welcome-wrapper d-flex align-items-center h-100 w-100 justify-content-center text-black overflow-hidden">
 
     <section class="dashboard-wrapper container h-100">
         
@@ -24,7 +24,7 @@
                     <partial name="_ManageNav" />
                 </div>
 
-                <div class="col-md-9">
+                <div class="col-md-9 h-100">
                     @RenderBody()
                 </div>
 

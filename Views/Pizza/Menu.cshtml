@@ -71,14 +71,38 @@ function start(id) {
 }
 
 
-function pizzaShow() {
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - A X I O S
+function getPizze(id) {
+
+    axios.get('/api/pizzas', {
+        params: {
+            categoryId: id
+        }
+    })
+    .then(res => {
+        pizzas = res.data;
+        pizzas.forEach(addPizza);
+        pizzeShow();        
+    })
+
+    .catch(err => {
+        console.log(err);
+        text_load.classList.add('d-none');
+        db_error.classList.remove('d-none');
+        db_error.classList.add('d-flex');
+    })
+}
+
+
+function pizzeShow() {
 
     let time = 0;
 
     if (t > 0) {
         time = 5;
     } else {
-        time = 1000;
+        time = 600;
     }
 
 
@@ -97,30 +121,6 @@ function pizzaShow() {
 
         t++;
     }, time);    
-}
-
-
-
-//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - A X I O S
-function getPizze(id) {
-
-    axios.get('/api/pizzas', {
-        params: {
-            categoryId: id
-        }
-    })
-    .then(res => {
-        pizzas = res.data;
-        pizzas.forEach(addPizza);
-        pizzaShow();        
-    })
-
-    .catch(err => {
-        console.log(err);
-        text_load.classList.add('d-none');
-        db_error.classList.remove('d-none');
-        db_error.classList.add('d-flex');
-    })
 }
 
 

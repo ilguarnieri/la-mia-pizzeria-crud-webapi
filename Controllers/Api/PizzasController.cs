@@ -31,6 +31,27 @@ namespace la_mia_pizzeria_static.Controllers.Api
             }
         }
 
+        [HttpGet]
+        public IActionResult GetPizzas(string? inputUser)
+        {
+            using (PizzaContext db = new PizzaContext())
+            {
+                IEnumerable<Pizza> pizzas;
+
+                if (inputUser != null)
+                {
+                    pizzas = db.Pizzas.Where(p => p.Name.ToLower() == inputUser).OrderBy(p => p.Name).ToList();
+                }
+                else
+                {
+                    pizzas = db.Pizzas.Include("Category").OrderBy(p => p.Name).ToList();
+                }
+
+                return Ok(pizzas);
+            }
+        }
+
+
         [HttpGet("{id}")]
         public IActionResult GetDetailPizza(int id)
         {
