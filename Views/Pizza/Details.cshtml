@@ -1,62 +1,48 @@
-﻿@model Pizza
-@{
-    string[] ingredienti = Model.Ingredients.Split(",");
-
-    bool photoPresent = true;
-
-    if(Model.Photo == null)
-    {
-        photoPresent = false;
-    }
-}
+﻿
 
 <main class="patter-background p-3 pt-5 pb-5 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
 
     <h4 class="fw-bold mb-3"><a asp-controller="Pizza" asp-action="Menu">Torna al Menù</a></h4>
 
-    <section class="pizza-detail container col-12 col-lg-9 col-xl-8 d-flex-column d-md-flex p-2 p-sm-3 p-md-5">
+    <section class="pizza-detail container col-12 col-lg-9 col-xl-8 d-flex-column d-md-flex p-2 p-sm-3 p-md-5 justify-content-center">
+                    
 
-        <div class="col-12 col-md-6 d-flex justify-content-center position-relative">
-
-            <div class="price-details position-absolute d-flex justify-content-center align-items-center p-1">
-                <h5 class="m-0 fw-bold">@Model.Price €</h5>
+        <div class="text-load position-relative">
+            <div id="load">
+              <div>G</div>
+              <div>N</div>
+              <div>I</div>
+              <div>D</div>
+              <div>A</div>
+              <div>O</div>
+              <div>L</div>
             </div>
-
-
-            @if (photoPresent)
-            {
-                <img class="pizza-img" src="@Model.Photo" alt="foto-pizza"/>
-            }
-            else
-            {
-                <img class="w-75 pizza-img" src="/img/back-no-pizza.png" alt="back-no-pizza"/>
-            }   
         </div>
 
-        <div class="col-12 col-md-6 d-flex flex-column">
+         <div class="pizza-empty p-3 text-center d-none">
+            <h1>Attualmente non è presente nessuna pizza!</h1>
+        </div>
 
-            <h2 class="text-center text-name" >@Model.Name</h2>
+
+        <div class="image_price-wrapper col-12 col-md-6 justify-content-center position-relative h-50 d-none">
+
+           @* - - - PREZZO - - - *@
+            <div class="price-details position-absolute d-flex justify-content-center align-items-center p-1"></div>
+        </div>
+
+
+        <div class="info-wrapper col-12 col-md-6 flex-column d-none">
 
             <div class="ingredients-wrapper pt-3 p-4 p-sm-5  flex-grow-1">
 
-                <p  class="mb-2 fw-bold">@ViewData["Category"]</p>
+                <p class="mb-2 fw-bold">Ingredienti:</p>
 
-
-
-
-                <p  class="mb-2 fw-bold">Ingredienti:</p>
-
-                <ul>
-                    @foreach(string ingrediente in ingredienti)
-                    {
-                        if(ingrediente != "")
-                        {
-                            <li class="ms-4">@ingrediente</li>
-                        }
-                    }
-                </ul>
+                <ul class="ingretients-wrapper"></ul>
             </div>
 
+
+
+            @*
             @if (User.Identity.IsAuthenticated)
             {                
                 <div class="mb-2 pt-3 d-flex justify-content-evenly">
@@ -71,11 +57,12 @@
                     </button>
                 </div>
             }
+            *@
 
         </div>
-
     </section>
 
+    @*
     <section class="confirm-delete d-none position-absolute m-3 p-4 text-center">
         <h5 class="mb-4">Vuoi davvero eliminare @Model.Name?</h5>
 
@@ -93,24 +80,135 @@
             </form>
         </div>
     </section>
+    *@
+
 </main>
 
 
 
 @section Scripts{
 
-    <script>
-        const btn_delete = document.querySelector(".delete_button");
-        const confirmDelete = document.querySelector(".confirm-delete");
-        const btn_no = document.querySelector(".btn-no");
+<script>
 
-        btn_delete.addEventListener('click', () => {
-            confirmDelete.classList.remove("d-none");
-        });
+//const btn_delete = document.querySelector(".delete_button");
+//const confirmDelete = document.querySelector(".confirm-delete");
+//const btn_no = document.querySelector(".btn-no");
 
-        btn_no.addEventListener('click', () => {
-            confirmDelete.classList.add("d-none");
-        });
-    </script>
+//btn_delete.addEventListener('click', () => {
+//    confirmDelete.classList.remove("d-none");
+//});
+
+//btn_no.addEventListener('click', () => {
+//    confirmDelete.classList.add("d-none");
+//});
+
+let pizza;
+const id = `@ViewData["id"]`;
+const info_wrapper = document.querySelector('.info-wrapper');
+const image_price_wrapper = document.querySelector('.image_price-wrapper');
+const pizza_detail = document.querySelector('.pizza-detail');
+const pizza_empty = document.querySelector('.pizza-empty');
+const text_load = document.querySelector('.text-load');
+
+
+getPizza();
+
+setTimeout(insertPizza, 100);
+
+
+function getPizza() {
+
+    axios.get(`/api/pizzas/${id}`)
+    .then(res => {
+        pizza = res.data;
+        pizzaShow();
+    })
+
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+
+function pizzaShow() {
+
+    setTimeout(() => {
+
+        if (Object.keys(pizza).length != 0) {
+
+            text_load.classList.add('d-none');
+            pizza_detail.classList.remove('justify-content-center');
+            image_price_wrapper.classList.remove('h-50', 'd-none');
+            image_price_wrapper.classList.add('d-flex');
+            info_wrapper.classList.remove('d-none');
+            info_wrapper.classList.add('d-flex');
+
+        } else {
+
+            text_load.classList.add('d-none');
+            pizza_empty.classList.remove('d-none');
+        }
+
+    }, 5);    
+}
+
+
+
+
+function insertPizza() {
+
+    //price
+    const price_details = document.querySelector('.price-details');
+    const price = document.createElement('h5');
+    price.classList.add('m-0', 'fw-bold');
+    price.innerHTML = `${pizza.price} €`;
+    price_details.append(price);
+
+
+    //img
+    const imgPizza = document.createElement('img');
+    imgPizza.alt = 'foto-pizza';
+    imgPizza.classList.add('foto-pizza');
+
+    if (pizza.photo == null) {
+        imgPizza.src = '/img/back-no-pizza.png';
+    } else {
+        imgPizza.src = pizza.photo;
+    }
+    image_price_wrapper.append(imgPizza);
+
+
+    //nome pizza
+    const name = document.createElement('h2');
+    name.classList.add('text-name', 'text-center');
+    name.innerHTML = pizza.name;
+    info_wrapper.insertBefore(name, info_wrapper.firstChild);  
+
+
+    //categoria
+    const ingredients_wrapper = document.querySelector('.ingredients-wrapper');
+    const category = document.createElement('p');
+    category.classList.add('mb-2', 'fw-bold');
+    category.innerHTML = pizza.category.name;
+    ingredients_wrapper.insertBefore(category, ingredients_wrapper.firstChild);
+
+
+    //ingredient
+    const ingredients = pizza.ingredients.split(",");
+    const ingretients_wrapper = document.querySelector('.ingretients-wrapper');
+    for (let i = 0; i < ingredients.length; i++) {
+
+        if (ingredients[i] != "") {
+
+            const item = document.createElement('li');
+            item.classList.add('ms-4');
+            item.innerHTML = ingredients[i];
+            ingretients_wrapper.append(item);
+        }
+
+    }
+}
+
+</script>
 
 }

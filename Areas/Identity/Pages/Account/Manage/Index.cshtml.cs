@@ -12,12 +12,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace la_mia_pizzeria_static.Areas.Identity.Pages.Account.Manage
 {
-    public class IndexModel : PageModel
+    public class CreatePizzaModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public IndexModel(
+        public CreatePizzaModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager)
         {

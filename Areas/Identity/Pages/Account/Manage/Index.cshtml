@@ -1,11 +1,15 @@
 ﻿@page
-@model IndexModel
+@model CreatePizzaModel
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Dashboard - ";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>Welcome @Model.Username</h3>
+<div class="d-flex flex-column flex-sm-row justify-content-between">
+    <h3>Welcome @Model.Username</h3>
+    <input type="text" placeholder="Cerca una pizza"/>
+</div>
+<hr />
 <partial name="_StatusMessage" for="StatusMessage" />
 
 <div row">
@@ -26,9 +30,6 @@
     </table>
 
 </div>
-
-
-
 
 
 
@@ -113,7 +114,7 @@ function addPizza(el, i) {
     //categoria
     const categoryItem = document.createElement('td');
     categoryItem.classList.add('t-visible');
-    categoryItem.innerHTML = el.categoryId;
+    categoryItem.innerHTML = el.category.name;
     newRow.append(categoryItem);
 
     //buttion td
@@ -137,9 +138,6 @@ function addPizza(el, i) {
     btn_delete.classList.add('btn', 'btn-danger');
     btn_delete.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
     buttonItem.append(btn_delete);
-
-
-
 }
 
 </script>

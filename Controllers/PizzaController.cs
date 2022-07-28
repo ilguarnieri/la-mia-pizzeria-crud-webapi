@@ -19,7 +19,7 @@ namespace la_mia_pizzeria_static.Controllers
                 categories = db.Categories.ToList();
             }
 
-            ViewData["Title"] = "Menu";
+            ViewData["Title"] = "Menu - ";
             ViewData["Categories"] = categories;
 
             return View();
@@ -28,37 +28,9 @@ namespace la_mia_pizzeria_static.Controllers
         // GET: HomeController1/Details/5
         public ActionResult Details(int id)
         {
-
-            Pizza pizzaCurrent;
-            Category categoryCurrent;
-
-            using (PizzaContext db = new PizzaContext())
-            {
-                pizzaCurrent = db.Pizzas.Where(p => p.Id == id).FirstOrDefault();
-                categoryCurrent = db.Categories.Where(c => c.Id == pizzaCurrent.CategoryId).FirstOrDefault();    
-            }
-
-            if(pizzaCurrent == null)
-            {
-                ViewData["Title"] = "Error404";
-                Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                return View("Error404");
-            }
-            else
-            {
-                ViewData["Title"] = pizzaCurrent.Name;
-                
-                if(categoryCurrent != null)
-                {
-                    ViewData["Category"] = categoryCurrent.Name;
-                }
-                else
-                {
-                    ViewData["Category"] = "Categoria non presente";
-                }
-
-                return View(pizzaCurrent);
-            }
+            ViewData["id"] = id;
+            ViewData["Title"] = "Info Pizza - ";
+            return View();
 
         }
 

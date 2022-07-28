@@ -23,7 +23,7 @@
 
     <div class="container-fluid container-lg d-flex justify-content-center align-content-center flex-wrap gap-4 p-3 flex-grow-1">
 
-        <div class="text-load position-relative">
+        <div class="text-load text-danger position-relative">
             <div id="load">
               <div>G</div>
               <div>N</div>
@@ -42,9 +42,7 @@
         <div class="pizza-empty p-3 text-center d-none">
             <h1>Attualmente non è presente nessuna pizza!</h1>
         </div>
-
     </div>
-    
 </main>
 
 
@@ -52,22 +50,26 @@
 <script>
 
 let pizzas = [];
+let t = 0;
 const pizzas_ul = document.querySelector('.pizzas_ul');
 const btn_categories = document.querySelectorAll('.pizz_button');
+const pizza_empty = document.querySelector('.pizza-empty');
+const text_load = document.querySelector('.text-load');
 addListenerBtn();
 
 start();
 
 function start(id) {
 
-    const pizza_empty = document.querySelector('.pizza-empty');
-    const text_load = document.querySelector('.text-load');
-
     pizza_empty.classList.add('d-none');
     text_load.classList.remove('d-none');
     pizzas_ul.innerHTML = '';
     pizzas_ul.classList.add('d-none');
     getPizze(id);
+}
+
+
+function pizzaShow() {
 
     setTimeout(() => {
 
@@ -77,11 +79,12 @@ function start(id) {
             pizzas_ul.classList.remove('d-none');
 
         } else {
-            
+
             text_load.classList.add('d-none');
             pizza_empty.classList.remove('d-none');
         }
-    }, 2200)
+
+    }, 5);    
 }
 
 
@@ -97,6 +100,7 @@ function getPizze(id) {
     .then(res => {
         pizzas = res.data;
         pizzas.forEach(addPizza);
+        pizzaShow();        
     })
 
     .catch(err => {

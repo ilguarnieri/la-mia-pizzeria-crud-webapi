@@ -2,6 +2,7 @@
 
 @inject UserManager<IdentityUser> UserManager
 
+
 <main class="pizza-background welcome-wrapper pizza-background d-flex flex-column align-items-center h-100 w-100 justify-content-center">
 
     @if (User.Identity.IsAuthenticated)
@@ -17,7 +18,6 @@
     @if (User.Identity.IsAuthenticated)
     {        
         <h3 class="menu-title"><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Dashboard</a></h3>
-        <h3 class="menu-title"><a asp-controller="Pizza" asp-action="Create">Crea una nuova pizza</a></h3>
     }
 
 </main>
