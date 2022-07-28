@@ -31,14 +31,22 @@ namespace la_mia_pizzeria_static.Controllers
             ViewData["id"] = id;
             ViewData["Title"] = "Info Pizza - ";
             return View();
-
         }
+
+
+
+
+
+
+
+
+
 
         // GET: HomeController1/Create
         [Authorize]
         public ActionResult Create()
         {
-            ViewData["Title"] = "Crea pizza";
+            ViewData["Title"] = "Crea pizza - ";
             CategoryPizza model = new CategoryPizza();
 
             using (PizzaContext db = new PizzaContext())

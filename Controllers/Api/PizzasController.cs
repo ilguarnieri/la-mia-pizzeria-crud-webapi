@@ -27,25 +27,19 @@ namespace la_mia_pizzeria_static.Controllers.Api
                     pizzas = db.Pizzas.Include("Category").OrderBy(p => p.Name).ToList();
                 }
 
-                return Ok(pizzas);
-            }
-        }
 
-        [HttpGet]
-        public IActionResult GetPizzas(string? inputUser)
-        {
-            using (PizzaContext db = new PizzaContext())
-            {
-                IEnumerable<Pizza> pizzas;
+                //if (String.IsNullOrEmpty(inputUser))
+                //{
+                //    String query = "SELECT * FROM pizzas p" +
+                //        "INNER JOIN categories c" +
+                //        "ON p.CategoryId = c.Id" +
+                //        "WHERE CHARINDEX('" +
+                //        inputUser +
+                //        "', p.name) > 0";
 
-                if (inputUser != null)
-                {
-                    pizzas = db.Pizzas.Where(p => p.Name.ToLower() == inputUser).OrderBy(p => p.Name).ToList();
-                }
-                else
-                {
-                    pizzas = db.Pizzas.Include("Category").OrderBy(p => p.Name).ToList();
-                }
+                //    pizzas = db.Pizzas.FromSqlRaw(query).ToList();
+
+                //}
 
                 return Ok(pizzas);
             }
@@ -68,7 +62,24 @@ namespace la_mia_pizzeria_static.Controllers.Api
                     return Ok(pizzaCurrent);
                 }
             }
-
         }
+
+
+        //[HttpPost]
+        //public IActionResult Post([FromBody] Utente model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return UnprocessableEntity(ModelState);
+        //    }
+        //    using (UtenteContext context = new UtenteContext())
+        //    {
+        //        // ... inseriamo le informazioni a DB ...
+        //        return Ok();
+        //    }
+        //}
+        
+
+
     }
 }
