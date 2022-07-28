@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace la_mia_pizzeria_static.Controllers
+namespace la_mia_pizzeria_static.Controllers.Api
 {
     [Route("api/pizzas")]
     [ApiController]
@@ -18,7 +18,7 @@ namespace la_mia_pizzeria_static.Controllers
             {
                 IEnumerable<Pizza> pizzas;
 
-                if(categoryId != null)
+                if (categoryId != null)
                 {
                     pizzas = db.Pizzas.Where(p => p.CategoryId == categoryId).OrderBy(p => p.Name).ToList();
                 }
@@ -38,7 +38,7 @@ namespace la_mia_pizzeria_static.Controllers
             {
                 Pizza pizzaCurrent = db.Pizzas.Include("Category").Where(p => p.Id == id).FirstOrDefault();
 
-                if(pizzaCurrent == null)
+                if (pizzaCurrent == null)
                 {
                     return NotFound("404 - Not Found");
                 }

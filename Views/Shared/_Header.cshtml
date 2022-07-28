@@ -27,6 +27,19 @@
                     <a id="menu" class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Menu">Menù</a>
                 </li>
 
+                @if (User.Identity.IsAuthenticated)
+                {                    
+                    <li class="nav-item">
+                        <a id="creapizza" class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Create">Crea pizza</a>
+                    </li>                }
+                else
+                {
+                    <li class="nav-item">
+                        <a id="contattaci" class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contattaci</a>
+                    </li>                    
+                }
+
+
                 <partial name="_LoginPartial" />
             </ul>
         </div>

@@ -7,16 +7,8 @@
     <section class="pizza-detail container col-12 col-lg-9 col-xl-8 d-flex-column d-md-flex p-2 p-sm-3 p-md-5 justify-content-center">
                     
 
-        <div class="text-load position-relative">
-            <div id="load">
-              <div>G</div>
-              <div>N</div>
-              <div>I</div>
-              <div>D</div>
-              <div>A</div>
-              <div>O</div>
-              <div>L</div>
-            </div>
+        <div class="text-load">
+            @Html.Partial("_Loader")
         </div>
 
          <div class="pizza-empty p-3 text-center d-none">
@@ -149,10 +141,8 @@ function pizzaShow() {
             pizza_empty.classList.remove('d-none');
         }
 
-    }, 5);    
+    }, 20);    
 }
-
-
 
 
 function insertPizza() {
