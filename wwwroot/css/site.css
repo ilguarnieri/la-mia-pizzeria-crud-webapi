@@ -99,6 +99,10 @@ a{
     object-fit: contain;
 }
 
+.bg-white{
+    background-color: white;
+}
+
 
 /*------------------------------- I N D E X ------------------------------*/
 .welcome-wrapper {
@@ -242,7 +246,6 @@ a{
 
 /*------------------------------- C R E A T E ------------------------------*/
 .pizza-create {
-    background-color: white;
     color: black;
     border-radius: 20px;
 }
@@ -437,7 +440,7 @@ a{
     color: red;
     background: linear-gradient(270deg, rgba(0,204,188,1) 0%, rgba(255,255,255,0.4321078773306197) 0%, rgba(158,158,158,0.4) 100%);
     border: 0;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     border-bottom: 1px solid #CF464D;
 }
 
@@ -452,7 +455,7 @@ a{
 }
 
     #dashboard a:hover {
-        letter-spacing: 4px;
+        letter-spacing: 2px;
     }
 
 @media screen and (max-width:500px) {

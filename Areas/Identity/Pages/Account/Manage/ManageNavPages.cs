@@ -61,10 +61,6 @@ namespace  la_mia_pizzeria_static.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
-        public static string CreatePizza => "CreatePizza";
-
-        public static string NewPizzaNavClass(ViewContext viewContext) => PageNavClass(viewContext, CreatePizza);
-
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.

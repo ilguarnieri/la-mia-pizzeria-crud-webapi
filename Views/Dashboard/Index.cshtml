@@ -1,0 +1,238 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    Layout = "_LayoutDashboard.cshtml";
+
+    ViewData["Title"] = "Dashboard - ";
+    ViewData["ActiveNav"] = "dashboard";
+}
+
+
+
+<div class="d-flex flex-column flex-sm-row justify-content-between pt-3 pt-md-0">
+    <h3>Welcome @UserManager.GetUserName(User)</h3>
+    <input id="input_dash_search" class="ps-2 col-12 col-sm-5 col-lg-4" type="text" placeholder="Cerca una pizza"/>
+</div>
+<hr />
+
+
+<div class="dash-index-wrapper row d-flex align-content-center">
+
+    <div class="text-load d-flex justify-content-center">
+        @Html.Partial("_Loader")
+    </div>
+
+    <table class="table-index-dash table table-striped table-hover fw-bold d-none">
+      <thead>
+        <tr>
+          <th scope="col" class="t-visible">#</th>
+          <th scope="col" class="t-visible">Immagine</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Prezzo</th>
+          <th scope="col" class="t-visible">Categoria</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody class="table-body">
+      </tbody>
+    </table>
+
+    <div class="pizza-empty p-3 text-center d-none">
+        <h1>Crea la prima pizza!</h1>
+    </div>
+
+    <div class="db-error p-3 text-center d-none">
+        <h1>SI È VERIFICATO UN ERRORE!</h1>
+    </div>
+
+</div>
+
+
+
+@section Scripts{
+<script>
+
+let t = 0;
+let timer;
+let pizzas = []
+
+const table_body = document.querySelector('.table-body');
+const text_load = document.querySelector('.text-load');
+const table_index_dash = document.querySelector('.table-index-dash');
+const pizza_empty = document.querySelector('.pizza-empty');
+const db_error = document.querySelector('.db-error');
+const input_dash_search = document.getElementById('input_dash_search');
+
+
+start();
+
+
+
+
+
+input_dash_search.addEventListener('keyup', keyDown);
+
+function keyDown()
+{
+  if (timer)
+  {
+    clearTimeout( timer );
+    timer = setTimeout( myCallback, 2000);
+  }
+  else
+  {
+    timer = setTimeout( myCallback, 2000);
+  }
+}
+
+function myCallback()
+{
+    const inputUser = input_dash_search.ariaValueMax.trim();
+
+    start(inputUser);
+}
+
+
+
+
+function start(inputUser) {
+    table_body.innerHTML = '';
+
+
+    pizza_empty.classList.add('d-none');
+    db_error.classList.add('d-none');
+    text_load.classList.remove('d-none');
+    table_body.innerHTML = '';
+    table_index_dash.classList.add('d-none');
+    
+    getPizze(inputUser);
+}
+
+
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - A X I O S
+function getPizze(inputUser) {
+
+    axios.get('/api/pizzas', {
+        params: {
+            name: inputUser
+        }
+    })
+    .then(res => {
+        pizzas = res.data;
+        pizzas.forEach(addPizza);
+        pizzeShow();
+    })
+
+    .catch(err => {
+        console.log(err);
+        text_load.classList.add('d-none');
+        db_error.classList.remove('d-none');
+    })
+}
+
+
+
+
+function pizzeShow() {
+
+    let time = 0;
+
+    if (t > 0) {
+        time = 5;
+    } else {
+        time = 600;
+    }
+
+
+    setTimeout(() => {
+
+        if (pizzas.length > 0) {
+
+            text_load.classList.add('d-none');
+            table_index_dash.classList.remove('d-none');
+
+        } else {
+
+            text_load.classList.add('d-none');
+            pizza_empty.classList.remove('d-none');
+        }
+
+        t++;
+    }, time);    
+}
+
+
+//- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - A D D - P I Z Z A
+function addPizza(el, i) {
+
+    //creazione  riga
+    const newRow = document.createElement('tr');
+    newRow.dataset.pizzaId = el.id;
+    table_body.append(newRow);
+
+    //index
+    const newItem = document.createElement('th');
+    newItem.getAttribute('scope', 'row');
+    newItem.classList.add('t-visible');
+    newItem.innerHTML = i;
+    newRow.append(newItem);
+
+    //img
+    const imgItem = document.createElement('td');
+    imgItem.classList.add('t-visible', 'table-img');
+    newRow.append(imgItem);
+
+    const imgTag = document.createElement('img');
+    imgTag.classList.add('t-visible');
+    imgTag.alt = 'foto-pizza';
+    if (el.photo == null) {
+        imgTag.src = '/img/back-no-pizza.png';
+    } else {
+        imgTag.src = el.photo;
+    }
+    imgItem.append(imgTag);
+
+    //nome
+    const nameItem = document.createElement('td');
+    nameItem.innerHTML = el.name;
+    newRow.append(nameItem);
+
+    //price
+    const priceItem = document.createElement('td');
+    priceItem.innerHTML = `${el.price} €`;
+    newRow.append(priceItem);
+
+    //categoria
+    const categoryItem = document.createElement('td');
+    categoryItem.classList.add('t-visible');
+    categoryItem.innerHTML = el.category.name;
+    newRow.append(categoryItem);
+
+    //buttion td
+    const buttonItem = document.createElement('td');
+    newRow.append(buttonItem);
+
+    //view
+    const btn_view = document.createElement('button');
+    btn_view.classList.add('btn', 'btn-warning');
+    btn_view.innerHTML = '<i class="fa-solid fa-eye"></i>';
+    buttonItem.append(btn_view);
+
+    //edit
+    const btn_edit = document.createElement('button');
+    btn_edit.classList.add('btn', 'btn-info');
+    btn_edit.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+    buttonItem.append(btn_edit);
+
+    //delete
+    const btn_delete = document.createElement('button');
+    btn_delete.classList.add('btn', 'btn-danger');
+    btn_delete.innerHTML = '<i class="fa-regular fa-trash-can"></i>';
+    buttonItem.append(btn_delete);
+}
+
+</script>
+}

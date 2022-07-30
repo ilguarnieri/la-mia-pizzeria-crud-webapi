@@ -19,7 +19,6 @@ namespace la_mia_pizzeria_static.Controllers
                 categories = db.Categories.ToList();
             }
 
-            ViewData["Title"] = "Menu - ";
             ViewData["Categories"] = categories;
 
             return View();
@@ -29,7 +28,6 @@ namespace la_mia_pizzeria_static.Controllers
         public ActionResult Details(int id)
         {
             ViewData["id"] = id;
-            ViewData["Title"] = "Info Pizza - ";
             return View();
         }
 

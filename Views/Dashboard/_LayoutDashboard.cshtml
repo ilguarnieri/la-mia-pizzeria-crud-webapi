@@ -18,9 +18,28 @@
         @Html.Partial("_Header")
     </header>
 
-    <div class="flex-grow-1">
-        @RenderBody()
-    </div>
+    <main id="dashboard" class="dashboard-background welcome-wrapper d-flex align-items-center h-100 w-100 justify-content-center text-black overflow-hidden">
+
+    <section class="dashboard-wrapper container h-100">
+        
+        <div class="pt-3">
+            <h2>Dashboard</h2>
+            <hr />
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    @Html.Partial("_SideBar")
+                </div>
+
+                <div class="col-md-9 h-100">
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>       
+    </section>
+</main>
 
     <div class="footer text-muted">
         @Html.Partial("_Footer")
@@ -31,8 +50,6 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <script>
-
-        console.log(@ViewData["ActiveNav"].ToString().ToLower())
 
         const ind = "@ViewData["ActiveNav"].ToString().ToLower()";
         const item = document.getElementById(ind.replace(/ /g, ""));
