@@ -10,7 +10,7 @@ namespace la_mia_pizzeria_static.Controllers.Api
     [ApiController]
     public class PizzasController : ControllerBase
     {
-
+        //api/pizzas  oppure  api/pizzas?categoryId=3
         [HttpGet]
         public IActionResult GetPizzas(int? categoryId)
         {
@@ -45,7 +45,38 @@ namespace la_mia_pizzeria_static.Controllers.Api
             }
         }
 
+        //api/pizzas/dash/search
+        [Route("dash/search")]
+        public IActionResult GetSearchPizza(string? name)
+        {
+            using (PizzaContext db = new PizzaContext())
+            {
+                IEnumerable<Pizza> pizzass;
 
+                Console.WriteLine(name);
+
+                if (name != null)
+                {
+                    String query = "SELECT * " +
+                        "FROM pizzas p " +
+                        "WHERE CHARINDEX('" +
+                        name +
+                        "', p.name) > 0";
+
+                    Console.WriteLine(query);
+
+                    pizzass = db.Pizzas.FromSqlRaw(query).Include("Category").ToList();
+                }
+                else
+                {
+                    pizzass = db.Pizzas.Include("Category").OrderBy(p => p.Name).ToList();
+                }
+
+                return Ok(pizzass);
+            }
+        }
+
+        //api/pizzas/3
         [HttpGet("{id}")]
         public IActionResult GetDetailPizza(int id)
         {

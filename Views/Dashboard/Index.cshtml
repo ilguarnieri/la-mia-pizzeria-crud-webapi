@@ -41,7 +41,7 @@
     </table>
 
     <div class="pizza-empty p-3 text-center d-none">
-        <h1>Crea la prima pizza!</h1>
+        <h1>Nessuna pizza  trovata!</h1>
     </div>
 
     <div class="db-error p-3 text-center d-none">
@@ -65,13 +65,10 @@ const table_index_dash = document.querySelector('.table-index-dash');
 const pizza_empty = document.querySelector('.pizza-empty');
 const db_error = document.querySelector('.db-error');
 const input_dash_search = document.getElementById('input_dash_search');
+const dash_index_wrapper = document.querySelector('.dash-index-wrapper');
 
 
 start();
-
-
-
-
 
 input_dash_search.addEventListener('keyup', keyDown);
 
@@ -80,31 +77,31 @@ function keyDown()
   if (timer)
   {
     clearTimeout( timer );
-    timer = setTimeout( myCallback, 2000);
+    timer = setTimeout( myCallback, 1500);
   }
   else
   {
-    timer = setTimeout( myCallback, 2000);
+    timer = setTimeout( myCallback, 1500);
   }
 }
 
 function myCallback()
 {
-    const inputUser = input_dash_search.ariaValueMax.trim();
+    const inputUser = input_dash_search.value.trim();
 
+    console.log(inputUser);
     start(inputUser);
 }
-
-
 
 
 function start(inputUser) {
     table_body.innerHTML = '';
 
-
     pizza_empty.classList.add('d-none');
     db_error.classList.add('d-none');
     text_load.classList.remove('d-none');
+    dash_index_wrapper.classList.remove('align-content-start');
+    dash_index_wrapper.classList.add('align-content-center');
     table_body.innerHTML = '';
     table_index_dash.classList.add('d-none');
     
@@ -116,7 +113,7 @@ function start(inputUser) {
 //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - A X I O S
 function getPizze(inputUser) {
 
-    axios.get('/api/pizzas', {
+    axios.get('/api/pizzas/dash/search', {
         params: {
             name: inputUser
         }
@@ -130,11 +127,11 @@ function getPizze(inputUser) {
     .catch(err => {
         console.log(err);
         text_load.classList.add('d-none');
+        dash_index_wrapper.classList.remove('align-content-center');
+        dash_index_wrapper.classList.add('align-content-start');
         db_error.classList.remove('d-none');
     })
 }
-
-
 
 
 function pizzeShow() {
@@ -153,11 +150,15 @@ function pizzeShow() {
         if (pizzas.length > 0) {
 
             text_load.classList.add('d-none');
+            dash_index_wrapper.classList.remove('align-content-center');
+            dash_index_wrapper.classList.add('align-content-start');
             table_index_dash.classList.remove('d-none');
 
         } else {
 
             text_load.classList.add('d-none');
+            dash_index_wrapper.classList.remove('align-content-center');
+            dash_index_wrapper.classList.add('align-content-start');
             pizza_empty.classList.remove('d-none');
         }
 
