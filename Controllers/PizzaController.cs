@@ -35,11 +35,6 @@ namespace la_mia_pizzeria_static.Controllers
 
 
 
-
-
-
-
-
         // GET: HomeController1/Create
         [Authorize]
         public ActionResult Create()

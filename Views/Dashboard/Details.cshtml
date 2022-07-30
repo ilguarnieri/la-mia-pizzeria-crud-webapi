@@ -1,13 +1,16 @@
 ﻿@{
-    ViewData["ActiveNav"] = "menu";
-    ViewData["Title"] = "Info Pizza - ";
+    Layout = "_LayoutDashboard.cshtml";
+
+    ViewData["Title"] = "Dashboard - ";
+    ViewData["ActiveNav"] = "dashboard";
+    ViewData["ActivePage"] = "index";
 }
 
-<main class="patter-background p-3 pt-5 pb-5 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
+<main>
 
-    <h4 class="fw-bold mb-3"><a asp-controller="Pizza" asp-action="Menu">Torna al Menù</a></h4>
+    <h6 class="fw-bold mb-3 mt-3 mt-md-0"><a asp-controller="Dashboard" asp-action="Index"><i class="fas fa-long-arrow-alt-left"></i> Torna indietro</a></h7>
 
-    <section class="pizza-detail bg-white container col-12 col-lg-9 col-xl-8 d-flex-column d-md-flex p-2 p-sm-3 p-md-5 justify-content-center align-items-center">
+    <section class="pizza-detail mb-4 mt-4 container d-flex-column d-lg-flex p-2 p-sm-3 p-lg-5 justify-content-center align-items-center">
                     
 
         <div class="text-load">
@@ -19,14 +22,14 @@
         </div>
 
 
-        <div class="image_price-wrapper col-12 col-md-6 justify-content-center align-items-center position-relative h-50 d-none">
+        <div class="image_price-wrapper col-12 col-lg-6 justify-content-center align-items-center position-relative h-50 d-none">
 
            @* - - - PREZZO - - - *@
             <div class="price-details position-absolute d-flex justify-content-center align-items-center p-1"></div>
         </div>
 
 
-        <div class="info-wrapper col-12 col-md-6 flex-column d-none">
+        <div class="info-wrapper col-12 col-lg-6 flex-column d-none">
 
             <div class="ingredients-wrapper pt-3 p-4 p-sm-5  flex-grow-1">
 

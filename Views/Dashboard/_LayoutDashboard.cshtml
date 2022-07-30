@@ -12,15 +12,15 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body class="d-flex flex-column">
+<body class="flex-column">
 
     <header>
         @Html.Partial("_Header")
     </header>
 
-    <main id="dashboard" class="dashboard-background welcome-wrapper d-flex align-items-center h-100 w-100 justify-content-center text-black overflow-hidden">
+    <main id="dashboard" class="dashboard-background welcome-wrapper text-black">
 
-    <section class="dashboard-wrapper container h-100">
+    <section class="dashboard-wrapper container">
         
         <div class="pt-3">
             <h2>Dashboard</h2>
@@ -32,7 +32,7 @@
                     @Html.Partial("_SideBar")
                 </div>
 
-                <div class="col-md-9 h-100">
+                <div class="col-md-9">
                     @RenderBody()
                 </div>
 

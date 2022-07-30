@@ -16,6 +16,7 @@ namespace la_mia_pizzeria_static.Controllers
         // GET: DashboardController/Details/5
         public ActionResult Details(int id)
         {
+            ViewData["id"] = id;
             return View();
         }
 

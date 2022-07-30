@@ -99,10 +99,6 @@ a{
     object-fit: contain;
 }
 
-.bg-white{
-    background-color: white;
-}
-
 
 /*------------------------------- I N D E X ------------------------------*/
 .welcome-wrapper {
@@ -216,7 +212,7 @@ a{
 
 /*------------------------------- D E T A I L ------------------------------*/
 .pizza-detail {
-    background-color: white;
+    background-color: rgba(255,255,255,0.6);
     color: black;
     border-radius: 20px;
     font-size: 18px;
@@ -457,6 +453,10 @@ a{
     #dashboard a:hover {
         letter-spacing: 2px;
     }
+
+#dashboard .table > tbody {
+    vertical-align: middle;
+}
 
 @media screen and (max-width:500px) {
     .table-img {

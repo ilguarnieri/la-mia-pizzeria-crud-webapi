@@ -7,6 +7,7 @@
 
     ViewData["Title"] = "Dashboard - ";
     ViewData["ActiveNav"] = "dashboard";
+    ViewData["ActivePage"] = "index";
 }
 
 
@@ -18,7 +19,7 @@
 <hr />
 
 
-<div class="dash-index-wrapper row d-flex align-content-center">
+<div class="dash-index-wrapper row align-content-center">
 
     <div class="text-load d-flex justify-content-center">
         @Html.Partial("_Loader")
@@ -177,7 +178,7 @@ function addPizza(el, i) {
     const newItem = document.createElement('th');
     newItem.getAttribute('scope', 'row');
     newItem.classList.add('t-visible');
-    newItem.innerHTML = i;
+    newItem.innerHTML = ++i;
     newRow.append(newItem);
 
     //img
@@ -216,10 +217,16 @@ function addPizza(el, i) {
     newRow.append(buttonItem);
 
     //view
+    const anchorItem = document.createElement('a');
+    var myUrl = '@Url.Action("Details","Dashboard")/' + el.id;
+    anchorItem.href = myUrl;
+    buttonItem.append(anchorItem);
+
     const btn_view = document.createElement('button');
     btn_view.classList.add('btn', 'btn-warning');
     btn_view.innerHTML = '<i class="fa-solid fa-eye"></i>';
-    buttonItem.append(btn_view);
+    anchorItem.append(btn_view);
+
 
     //edit
     const btn_edit = document.createElement('button');
