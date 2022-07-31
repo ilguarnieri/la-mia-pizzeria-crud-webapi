@@ -8,9 +8,9 @@
 
 <main>
 
-    <h6 class="fw-bold mb-3 mt-3 mt-md-0"><a asp-controller="Dashboard" asp-action="Index"><i class="fas fa-long-arrow-alt-left"></i> Torna indietro</a></h7>
+    <h6 class="fw-bold mb-3 mt-3 mt-md-0"><a asp-controller="Dashboard" asp-action="Index"><i class="fas fa-long-arrow-alt-left"></i> Torna indietro</a></h6>
 
-    <section class="pizza-detail mb-4 mt-4 container d-flex-column d-lg-flex p-2 p-sm-3 p-lg-5 justify-content-center align-items-center">
+    <section class="pizza-detail mb-4 mt-4 position-relative container d-flex-column d-lg-flex p-2 p-sm-3 p-lg-5 justify-content-center align-items-center">
                     
 
         <div class="text-load">
@@ -39,12 +39,10 @@
             </div>
 
 
-
-            @*z
             @if (User.Identity.IsAuthenticated)
             {                
                 <div class="mb-2 pt-3 d-flex justify-content-evenly">
-                    <a asp-controller="Pizza" asp-action="Edit" asp-route-id="@Model.Id">
+                    <a asp-controller="Dashboard" asp-action="Edit" asp-route-id="@ViewData["id"]">
                         <button type="submit" class="pizz_button change_button">
                             Modifica
                         </button>
@@ -55,30 +53,26 @@
                     </button>
                 </div>
             }
-            *@
-
         </div>
-    </section>
 
-    @*
-    <section class="confirm-delete d-none position-absolute m-3 p-4 text-center">
-        <h5 class="mb-4">Vuoi davvero eliminare @Model.Name?</h5>
+        <div class="confirm-delete d-none position-absolute m-3 p-4 text-center">
 
-        <div class="d-flex justify-content-evenly">
+            <div class="d-flex justify-content-evenly gap-2">
 
-            <button type="submit" class="pizz_button change_button btn-no">
-                NO
-            </button>
-
-            <form asp-controller="Pizza" asp-action="Delete" asp-route-id="@Model.Id" method="post">
-                @Html.AntiForgeryToken()
-                <button type="submit" class="pizz_button delete_button">
-                    Si
+                <button type="submit" class="pizz_button change_button btn-no">
+                    NO
                 </button>
-            </form>
+
+                <form asp-controller="Dashboard" asp-action="Delete" asp-route-id="@ViewData["id"]" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="pizz_button delete_button">
+                        Si
+                    </button>
+                </form>
+            </div>
         </div>
+
     </section>
-    *@
 
 </main>
 
@@ -88,17 +82,17 @@
 
 <script>
 
-//const btn_delete = document.querySelector(".delete_button");
-//const confirmDelete = document.querySelector(".confirm-delete");
-//const btn_no = document.querySelector(".btn-no");
+const btn_delete = document.querySelector(".delete_button");
+const confirmDelete = document.querySelector(".confirm-delete");
+const btn_no = document.querySelector(".btn-no");
 
-//btn_delete.addEventListener('click', () => {
-//    confirmDelete.classList.remove("d-none");
-//});
+btn_delete.addEventListener('click', () => {
+    confirmDelete.classList.remove("d-none");
+});
 
-//btn_no.addEventListener('click', () => {
-//    confirmDelete.classList.add("d-none");
-//});
+btn_no.addEventListener('click', () => {
+    confirmDelete.classList.add("d-none");
+});
 
 let pizza;
 const id = `@ViewData["id"]`;
@@ -107,6 +101,7 @@ const image_price_wrapper = document.querySelector('.image_price-wrapper');
 const pizza_detail = document.querySelector('.pizza-detail');
 const pizza_empty = document.querySelector('.pizza-empty');
 const text_load = document.querySelector('.text-load');
+const confirm_delete = document.querySelector('.confirm-delete')
 
 
 getPizza();
@@ -201,8 +196,13 @@ function insertPizza() {
             item.innerHTML = ingredients[i];
             ingretients_wrapper.append(item);
         }
-
     }
+
+    //nome pizza pop up
+    const popName = document.createElement('h5');
+    popName.classList.add('mb-4');
+    popName.innerHTML = `Vuoi davvero eliminare ${pizza.name}`;
+    confirm_delete.insertBefore(popName, confirm_delete.firstChild); 
 }
 
 </script>

@@ -19,7 +19,7 @@
 <hr />
 
 
-<div class="dash-index-wrapper row align-content-center">
+<div class="dash-index-wrapper row align-content-center position-relative">
 
     <div class="text-load d-flex justify-content-center">
         @Html.Partial("_Loader")
@@ -54,6 +54,22 @@
 
 @section Scripts{
 <script>
+
+//const buttons = document.querySelectorAll('.delete-form [type="submit"]');
+
+//buttons.forEach( el => {
+//    el.addEventListener('click', function(e) {
+//        e.preventDefault();
+
+//        const btn = e.target;
+//        const form = btn.closest('.delete-form');
+
+//        if(form && confirm('Vuoi eliminare questo Comic?')){
+//            form.submit();
+//        }
+//    })
+//})
+
 
 let t = 0;
 let timer;
@@ -218,22 +234,27 @@ function addPizza(el, i) {
     newRow.append(buttonItem);
 
     //view
-    const anchorItem = document.createElement('a');
+    const anchorView = document.createElement('a');
     var myUrl = '@Url.Action("Details","Dashboard")/' + el.id;
-    anchorItem.href = myUrl;
-    buttonItem.append(anchorItem);
+    anchorView.href = myUrl;
+    buttonItem.append(anchorView);
 
     const btn_view = document.createElement('button');
     btn_view.classList.add('btn', 'btn-warning');
     btn_view.innerHTML = '<i class="fa-solid fa-eye"></i>';
-    anchorItem.append(btn_view);
+    anchorView.append(btn_view);
 
 
     //edit
+    const anchorEdit = document.createElement('a');
+    var myUrl = '@Url.Action("Edit","Dashboard")/' + el.id;
+    anchorEdit.href = myUrl;
+    buttonItem.append(anchorEdit);
+
     const btn_edit = document.createElement('button');
     btn_edit.classList.add('btn', 'btn-info');
     btn_edit.innerHTML = '<i class="fa-solid fa-pencil"></i>';
-    buttonItem.append(btn_edit);
+    anchorEdit.append(btn_edit);
 
     //delete
     const btn_delete = document.createElement('button');

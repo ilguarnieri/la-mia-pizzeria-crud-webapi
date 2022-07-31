@@ -27,20 +27,6 @@ namespace la_mia_pizzeria_static.Controllers.Api
                     pizzas = db.Pizzas.Include("Category").OrderBy(p => p.Name).ToList();
                 }
 
-
-                //if (String.IsNullOrEmpty(inputUser))
-                //{
-                //    String query = "SELECT * FROM pizzas p" +
-                //        "INNER JOIN categories c" +
-                //        "ON p.CategoryId = c.Id" +
-                //        "WHERE CHARINDEX('" +
-                //        inputUser +
-                //        "', p.name) > 0";
-
-                //    pizzas = db.Pizzas.FromSqlRaw(query).ToList();
-
-                //}
-
                 return Ok(pizzas);
             }
         }

@@ -1,6 +1,13 @@
 ﻿@model Pizza
 
 @{
+
+    Layout = "~/Views/Dashboard/_LayoutDashboard.cshtml";
+
+    ViewData["Title"] = "Dashboard - ";
+    ViewData["ActiveNav"] = "dashboard";
+    ViewData["ActivePage"] = "create";
+
     bool photoPresent = true;
     IEnumerable<Category> categories = ViewData["Categories"] as IEnumerable<Category>;
 
@@ -10,13 +17,13 @@
     }
 }
 
-<main class="patter-background p-3 pt-5 pb-5 welcome-wrapper d-flex flex-column align-items-center h-100 w-100 justify-content-center">
+<main>
 
-    <h4 class="fw-bold mb-3"><a asp-controller="Pizza" asp-action="Menu">Torna al Menù</a></h4>
+    <h6 class="fw-bold mb-3 mt-3 mt-md-0"><a asp-controller="Dashboard" asp-action="Details" asp-route-id="@Model.Id"><i class="fas fa-long-arrow-alt-left"></i> Torna indietro</a></h6>
 
-    <section class="pizza-detail container col-12 col-lg-9 col-xl-8 d-flex-column d-md-flex p-2 p-sm-3 p-md-5 position-relative gap-md-4">
+    <section class="pizza-detail container d-flex-column d-lg-flex p-2 p-sm-3 p-md-5 mb-4 mt-4 position-relative gap-md-4">
 
-        <div class="col-12 col-md-6 d-flex justify-content-center">
+        <div class="col-12 col-lg-6 d-flex justify-content-center">
 
             @if (photoPresent)
             {
@@ -28,10 +35,10 @@
             }
         </div>
 
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             <h2 class="text-center text-name">Modifica @Model.Name</h2>
 
-            <form asp-controller="Pizza" asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            <form asp-controller="Dashboard" asp-action="Edit" asp-route-id="@Model.Id" method="post">
                 @Html.AntiForgeryToken()
 
                 <div class="mb-3 pt-3">

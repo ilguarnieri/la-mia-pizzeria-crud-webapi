@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using la_mia_pizzeria_static.Data;
+using la_mia_pizzeria_static.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace la_mia_pizzeria_static.Controllers
 {
@@ -20,66 +23,131 @@ namespace la_mia_pizzeria_static.Controllers
             return View();
         }
 
-        // GET: DashboardController/Create
+
+        // GET: HomeController1/Create
+        [Authorize]
         public ActionResult Create()
         {
-            return View();
+            ViewData["Title"] = "Crea pizza - ";
+            CategoryPizza model = new CategoryPizza();
+
+            using (PizzaContext db = new PizzaContext())
+            {
+                List<Category> categories = db.Categories.OrderBy(c => c.Name).ToList();
+
+                model.Categories = categories;
+                model.Pizza = new Pizza();
+            }
+
+            return View(model);
         }
 
-        // POST: DashboardController/Create
+        // POST: HomeController1/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CategoryPizza pizzaModel)
         {
-            try
+            using (PizzaContext db = new PizzaContext())
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                if (!ModelState.IsValid)
+                {
+                    ViewData["Title"] = "Crea pizza";
+                    List<Category> categories = db.Categories.OrderBy(c => c.Name).ToList();
+                    pizzaModel.Categories = categories;
+
+                    return View("Create", pizzaModel);
+                }
+
+                pizzaModel.Pizza.Ingredients = pizzaModel.Pizza.Ingredients.Replace(", ", ",");
+                db.Pizzas.Add(pizzaModel.Pizza);
+                db.SaveChanges();
+
+                int newPizzaId = db.Pizzas.OrderByDescending(p => p.Id).Select(p => p.Id).First();
+
+                return RedirectToAction("Details", "Dashboard", new { id = newPizzaId });
             }
         }
 
-        // GET: DashboardController/Edit/5
+        // GET: HomeController1/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
-            return View();
+            using (PizzaContext db = new PizzaContext())
+            {
+                Pizza pizzaChange = db.Pizzas.Where(p => p.Id == id).FirstOrDefault();
+
+                if (pizzaChange == null)
+                {
+                    ViewData["Title"] = "Error404";
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return View("Error404");
+                }
+
+                List<Category> categories = db.Categories.ToList();
+
+                ViewData["Title"] = pizzaChange.Name;
+                ViewData["Categories"] = categories;
+
+                return View(pizzaChange);
+            }
         }
 
-        // POST: DashboardController/Edit/5
+        // POST: HomeController1/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Pizza pizza)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                ViewData["Title"] = pizza.Name;
+                return View("Edit", pizza);
             }
-            catch
+
+            using (PizzaContext db = new PizzaContext())
             {
-                return View();
+                Pizza pizzaEdit = db.Pizzas.Where(p => p.Id == id).FirstOrDefault();
+
+                if (pizzaEdit == null)
+                {
+                    ViewData["Title"] = "Error404";
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return View("Error404");
+                }
+
+                pizzaEdit.Name = pizza.Name;
+                pizza.Ingredients = pizza.Ingredients.Replace(", ", ",");
+                pizzaEdit.Ingredients = pizza.Ingredients;
+                pizzaEdit.CategoryId = pizza.CategoryId;
+                pizzaEdit.Price = pizza.Price;
+                pizzaEdit.Photo = pizza.Photo;
+
+                db.SaveChanges();
             }
+
+            return RedirectToAction("Details", "Dashboard", new { id = id });
         }
 
-        // GET: DashboardController/Delete/5
+        // POST: HomeController1/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            using (PizzaContext db = new PizzaContext())
+            {
+                Pizza pizzaDelete = db.Pizzas.Where(p => p.Id == id).FirstOrDefault();
 
-        // POST: DashboardController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
+                if (pizzaDelete == null)
+                {
+                    ViewData["Title"] = "Error404";
+                    Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    return View("Error404");
+                }
+
+                db.Pizzas.Remove(pizzaDelete);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Dashboard");
             }
         }
     }
